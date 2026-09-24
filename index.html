@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Seguridad en Infraestructuras Multimedia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            900: '#134e4a',
+                        },
+                        cyber: {
+                            dark: '#0f172a',
+                            card: '#1e293b',
+                            border: '#334155',
+                            accent: '#38bdf8',
+                            purple: '#a855f7',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.25);
+        }
+        .glow-purple {
+            box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.25);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16 custom-scrollbar">
+
+    <!-- Header Principal -->
+    <header class="relative border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 text-xs font-mono font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded">COLOMBIA & ISO 27001</span>
+                        <span class="px-2 py-0.5 text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded">GUÍA TÉCNICA</span>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white">
+                        Seguridad en Infraestructuras Multimedia
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Acciones y Filtros Quick -->
+            <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                <button onclick="filterSection('all')" class="nav-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-border-all"></i> Todo
+                </button>
+                <button onclick="filterSection('riesgos')" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-bug text-rose-400"></i> Riesgos Técnicos
+                </button>
+                <button onclick="filterSection('incidentes')" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Incidentes
+                </button>
+                <button onclick="filterSection('legal')" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-scale-balanced text-purple-400"></i> Marco Legal
+                </button>
+                <button onclick="filterSection('mitigacion')" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap">
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i> Mitigación
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero / Metrics Dashboard -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-12">
+
+        <!-- Banner de Contexto -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-800 p-6 md:p-8">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute left-1/2 -top-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
+                <div class="space-y-1 md:border-r border-slate-700/60 md:pr-4">
+                    <p class="text-xs uppercase font-mono tracking-wider text-slate-400">Amenazas Objetivo</p>
+                    <p class="text-2xl font-extrabold text-cyan-400">Streaming & CDN</p>
+                    <p class="text-xs text-slate-400">Protección RTSP, WebRTC y HLS</p>
+                </div>
+                <div class="space-y-1 md:border-r border-slate-700/60 md:pr-4">
+                    <p class="text-xs uppercase font-mono tracking-wider text-slate-400">Estándar Global</p>
+                    <p class="text-2xl font-extrabold text-emerald-400">ISO/IEC 27001</p>
+                    <p class="text-xs text-slate-400">SGSI para activos digitales</p>
+                </div>
+                <div class="space-y-1 md:border-r border-slate-700/60 md:pr-4">
+                    <p class="text-xs uppercase font-mono tracking-wider text-slate-400">Jurisdicción</p>
+                    <p class="text-2xl font-extrabold text-purple-400">Leyes 1273 / 1581</p>
+                    <p class="text-xs text-slate-400">Ciberdelitos & Habeas Data (COL)</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase font-mono tracking-wider text-slate-400">Metodología</p>
+                    <p class="text-2xl font-extrabold text-amber-400">OWASP + CVE</p>
+                    <p class="text-xs text-slate-400">Auditoría proactiva continua</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 1: ANÁLISIS DE RIESGOS TÉCNICOS -->
+        <section id="sec-riesgos" class="info-section space-y-6">
+            <div class="flex items-center gap-3 border-l-4 border-cyan-500 pl-4">
+                <div>
+                    <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest">Bloque 01</span>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-cyan-400"></i>
+                        Análisis de Riesgos Técnicos en Multimedia
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card CVE & NVD -->
+                <div class="glass-panel p-6 rounded-xl hover:border-cyan-500/50 transition glow-cyan space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                            <i class="fa-solid fa-database text-lg"></i>
+                        </div>
+                        <span class="px-2 py-0.5 text-xs font-mono bg-slate-800 text-slate-300 rounded border border-slate-700">Vulnerabilidades</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">CVE & NVD</h3>
+                        <p class="text-sm text-slate-400 mt-1">Identificación y catálogo nacional/global de fallas conocidas en software, códecs de video y reproductores.</p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-cyan-400 mt-0.5"></i>
+                            <span>Detección de exploits en librerías FFmpeg, H.264 / AV1.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-cyan-400 mt-0.5"></i>
+                            <span>Evaluación del puntaje de severidad (CVSS v3.1).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card OWASP Top Ten -->
+                <div class="glass-panel p-6 rounded-xl hover:border-purple-500/50 transition glow-purple space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                            <i class="fa-solid fa-shield-cat text-lg"></i>
+                        </div>
+                        <span class="px-2 py-0.5 text-xs font-mono bg-slate-800 text-slate-300 rounded border border-slate-700">Web App Media</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">OWASP Top 10 Multimedia</h3>
+                        <p class="text-sm text-slate-400 mt-1">Prevención de riesgos críticos en plataformas web de audio, video interactivo y streaming.</p>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
+                            <span>Control de acceso roto en API de DRM / Tokens.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-purple-400 mt-0.5"></i>
+                            <span>Inyección en metadata y campos EXIF de archivos subidos.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card Herramientas y Evaluación -->
+                <div class="glass-panel p-6 rounded-xl hover:border-emerald-500/50 transition glow-emerald space-y-4 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                            <i class="fa-solid fa-network-wired text-lg"></i>
+                        </div>
+                        <span class="px-2 py-0.5 text-xs font-mono bg-slate-800 text-slate-300 rounded border border-slate-700">Análisis Operativo</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Metodologías de Evaluación</h3>
+                        <p class="text-sm text-slate-400 mt-1">Diagnóstico activo sobre el tráfico de medios e infraestructura CDN.</p>
+                    </div>
+                    <div class="space-y-2 pt-2 border-t border-slate-800">
+                        <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 flex items-center gap-3">
+                            <i class="fa-solid fa-wave-square text-cyan-400 text-sm"></i>
+                            <div>
+                                <p class="text-xs font-semibold text-white">Wireshark / Captura de Flujo</p>
+                                <p class="text-[11px] text-slate-400">Inspección de tráfico RTSP, WebRTC y latencia de paquetes.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 flex items-center gap-3">
+                            <i class="fa-solid fa-user-ninja text-emerald-400 text-sm"></i>
+                            <div>
+                                <p class="text-xs font-semibold text-white">Pentesting & IDS</p>
+                                <p class="text-[11px] text-slate-400">Simulación de secuestro de señal y ataques DDoS al servidor de transmisión.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: GESTIÓN DE INCIDENTES -->
+        <section id="sec-incidentes" class="info-section space-y-6">
+            <div class="flex items-center gap-3 border-l-4 border-amber-500 pl-4">
+                <div>
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-widest">Bloque 02</span>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                        Gestión de Incidentes (Ciclo ISO 27001)
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Flujo de Trabajo en Pasos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- Paso 1 -->
+                <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-amber-500/40 transition group">
+                    <div class="absolute top-3 right-3 text-2xl font-mono font-black text-slate-800 group-hover:text-amber-500/20 transition">01</div>
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3 border border-amber-500/30">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">1. Detección</h3>
+                    <p class="text-xs text-slate-400 mt-2">Monitoreo activo de métricas de streaming, picos inusuales de ancho de banda e intentos desautorizados de acceso.</p>
+                    <span class="mt-4 inline-block text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Log SIEM & Alertas</span>
+                </div>
+
+                <!-- Paso 2 -->
+                <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-rose-500/40 transition group">
+                    <div class="absolute top-3 right-3 text-2xl font-mono font-black text-slate-800 group-hover:text-rose-500/20 transition">02</div>
+                    <div class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center mb-3 border border-rose-500/30">
+                        <i class="fa-solid fa-[#000] fa-hand"></i>
+                        <i class="fa-solid fa-hand-back-fist"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">2. Contención</h3>
+                    <p class="text-xs text-slate-400 mt-2">Aislamiento inmediato del servidor CDN o endpoint afectado sin interrumpir la transmisión global.</p>
+                    <span class="mt-4 inline-block text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Aislamiento de red</span>
+                </div>
+
+                <!-- Paso 3 -->
+                <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-purple-500/40 transition group">
+                    <div class="absolute top-3 right-3 text-2xl font-mono font-black text-slate-800 group-hover:text-purple-500/20 transition">03</div>
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center mb-3 border border-purple-500/30">
+                        <i class="fa-solid fa-vial-virus"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">3. Erradicación</h3>
+                    <p class="text-xs text-slate-400 mt-2">Eliminación de la amenaza, parchado de la brecha en el servidor de transcodificación y revocación de tokens expuestos.</p>
+                    <span class="mt-4 inline-block text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Parcheo & DRM Reset</span>
+                </div>
+
+                <!-- Paso 4 -->
+                <div class="relative bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-emerald-500/40 transition group">
+                    <div class="absolute top-3 right-3 text-2xl font-mono font-black text-slate-800 group-hover:text-emerald-500/20 transition">04</div>
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3 border border-emerald-500/30">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-white">4. Recuperación</h3>
+                    <p class="text-xs text-slate-400 mt-2">Restablecimiento seguro del servicio de video/audio, análisis forense post-mortem y documentación de lecciones aprendidas.</p>
+                    <span class="mt-4 inline-block text-[10px] font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Mejora Continua</span>
+                </div>
+
+            </div>
+
+            <!-- Banner Informativo Proactivo -->
+            <div class="glass-panel p-4 rounded-xl border border-amber-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-clock-rotate-left text-amber-400 text-xl"></i>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Monitoreo Proactivo de Logs</h4>
+                        <p class="text-xs text-slate-400">La recolección centralizada de eventos (Log Management) permite anticipar ciberataques antes de la interrupción del servicio.</p>
+                    </div>
+                </div>
+                <div class="shrink-0">
+                    <span class="px-3 py-1 text-xs font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-lg">ISO 27001 Sec 12.4</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: MARCO LEGAL Y LICENCIAMIENTO -->
+        <section id="sec-legal" class="info-section space-y-6">
+            <div class="flex items-center gap-3 border-l-4 border-purple-500 pl-4">
+                <div>
+                    <span class="text-xs font-mono text-purple-400 uppercase tracking-widest">Bloque 03</span>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced text-purple-400"></i>
+                        Marco Legal y Licenciamiento (Colombia & Ética)
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Marco Legal Colombiano -->
+                <div class="glass-panel p-6 rounded-xl space-y-4">
+                    <div class="flex items-center gap-2 text-purple-400">
+                        <i class="fa-solid fa-gavel text-lg"></i>
+                        <h3 class="text-lg font-bold text-white">Legislación en Colombia</h3>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-900/90 rounded-lg border border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-purple-300">Ley 1273 de 2009</span>
+                                <span class="text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded">Delitos Informáticos</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Sanciona la interceptación no autorizada de transmisiones multimedia, vulneración de datos y sabotaje a sistemas informáticos.</p>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/90 rounded-lg border border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-purple-300">Ley 1581 de 2012</span>
+                                <span class="text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded">Protección de Datos</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Exige consentimiento explícito para la captura de voz, imagen y datos biológicos en plataformas interactivas (Habeas Data).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Licenciamiento y Clasificación Ética -->
+                <div class="glass-panel p-6 rounded-xl space-y-4">
+                    <div class="flex items-center gap-2 text-cyan-400">
+                        <i class="fa-solid fa-compact-disc text-lg"></i>
+                        <h3 class="text-lg font-bold text-white">Licencias y Clasificación de Contenido</h3>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-900/90 rounded-lg border border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-cyan-300">Software Propietario vs. Open Source</span>
+                                <span class="text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">Auditoría</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Análisis de costo/beneficio entre servidores multimedia propietarios (Wowza) y de código abierto (OBS/Nginx-RTMP) minimizando no conformidades legales.</p>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/90 rounded-lg border border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sm text-cyan-300">Clasificación Etaria & Ética</span>
+                                <span class="text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded">ESRB / PEGI</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-1">Control de acceso por edades en consumo de videojuegos y contenidos interactivos, garantizando entornos seguros para menores.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: ESTRATEGIAS DE MITIGACIÓN (INTERACTIVO) -->
+        <section id="sec-mitigacion" class="info-section space-y-6">
+            <div class="flex items-center justify-between flex-wrap gap-4 border-l-4 border-emerald-500 pl-4">
+                <div>
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Bloque 04</span>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-square-check text-emerald-400"></i>
+                        Plan de Mitigación y Diagnóstico Activo
+                    </h2>
+                </div>
+                <!-- Score de Madurez -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 flex items-center gap-3">
+                    <span class="text-xs text-slate-400">Nivel de Seguridad:</span>
+                    <div class="text-lg font-mono font-bold text-emerald-400" id="security-score">0%</div>
+                </div>
+            </div>
+
+            <!-- Lista de Chequeo Interactiva -->
+            <div class="glass-panel p-6 rounded-xl space-y-4">
+                <p class="text-xs text-slate-400 mb-2">Marca los controles de mitigación implementados en tu infraestructura multimedia para calcular el grado de madurez:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="checklist-container">
+                    
+                    <label class="flex items-start gap-3 p-3 bg-slate-900/80 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition">
+                        <input type="checkbox" onchange="updateScore()" class="mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500/20 w-4 h-4">
+                        <div>
+                            <span class="text-xs font-semibold text-white block">Mapeo e Inventario de Activos</span>
+                            <span class="text-[11px] text-slate-400">Identificación de servidores de medios, repositorios y canales de transmisión.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 bg-slate-900/80 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition">
+                        <input type="checkbox" onchange="updateScore()" class="mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500/20 w-4 h-4">
+                        <div>
+                            <span class="text-xs font-semibold text-white block">Hardening (Fortalecimiento de Servidores)</span>
+                            <span class="text-[11px] text-slate-400">Cierre de puertos innecesarios, cifrado TLS 1.3 en streaming RTSP/HLS.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 bg-slate-900/80 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition">
+                        <input type="checkbox" onchange="updateScore()" class="mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500/20 w-4 h-4">
+                        <div>
+                            <span class="text-xs font-semibold text-white block">Protección de Datos & Consentimiento (Ley 1581)</span>
+                            <span class="text-[11px] text-slate-400">Avisos de privacidad y cifrado de datos de usuario en repositorios multimedia.</span>
+                        </div>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-3 bg-slate-900/80 rounded-lg border border-slate-800 cursor-pointer hover:border-emerald-500/40 transition">
+                        <input type="checkbox" onchange="updateScore()" class="mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500/20 w-4 h-4">
+                        <div>
+                            <span class="text-xs font-semibold text-white block">Simulación de Pentesting & Auditoría Anual</span>
+                            <span class="text-[11px] text-slate-400">Pruebas periódicas de intrusión y revisión de vulnerabilidades CVE/OWASP.</span>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-slate-800 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>Infografía de Ciberseguridad en Infraestructuras Multimedia &bull; Alineado con ISO 27001 & Marco Colombia</p>
+            <p class="font-mono text-slate-600">v2.0 Visual Dashboard</p>
+        </div>
+    </footer>
+
+    <!-- Script de Interactividad -->
+    <script>
+        function filterSection(category) {
+            const sections = document.querySelectorAll('.info-section');
+            const buttons = document.querySelectorAll('.nav-btn');
+
+            // Actualizar botones
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+                btn.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700');
+            });
+
+            event.currentTarget.classList.remove('bg-slate-800', 'text-slate-300', 'border-slate-700');
+            event.currentTarget.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+
+            // Filtrar visibilidad
+            sections.forEach(sec => {
+                if (category === 'all') {
+                    sec.style.display = 'block';
+                } else {
+                    if (sec.id === 'sec-' + category) {
+                        sec.style.display = 'block';
+                    } else {
+                        sec.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function updateScore() {
+            const checkboxes = document.querySelectorAll('#checklist-container input[type="checkbox"]');
+            const checked = document.querySelectorAll('#checklist-container input[type="checkbox"]:checked');
+            const scoreEl = document.getElementById('security-score');
+
+            const percentage = Math.round((checked.length / checkboxes.length) * 100);
+            scoreEl.textContent = percentage + '%';
+
+            if (percentage === 100) {
+                scoreEl.className = 'text-lg font-mono font-bold text-emerald-400 animate-pulse';
+            } else if (percentage >= 50) {
+                scoreEl.className = 'text-lg font-mono font-bold text-amber-400';
+            } else {
+                scoreEl.className = 'text-lg font-mono font-bold text-rose-400';
+            }
+        }
+
+        // Inicializar score
+        updateScore();
+    </script>
+</body>
+</html>
